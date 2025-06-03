@@ -122,13 +122,6 @@ EOF
   echo -e "${GREEN}✅ PM2 config created with $INSTANCES isolated workers using unique HOME paths.${RESET}"
 }
 
-prewarm_wai() {
-  echo -e "${BLUE}⏳ Running initial wai setup to warm cache...${RESET}"
-  bash -i -c "wai run" || true
-  chmod +x ~/.wombo/cache/bin/uv 2>/dev/null || true
-  echo -e "${GREEN}✅ WAI CLI pre-warmed and ready for PM2.${RESET}"
-}
-
 start_workers() {
   echo -e "${BLUE}🔁 Loading NVM environment to enable PM2 globally...${RESET}"
   export NVM_DIR="$HOME/.nvm"
@@ -155,7 +148,6 @@ main() {
   install_pm2
   detect_vram
   generate_pm2_config
-  prewarm_wai
   start_workers
 }
 
