@@ -101,6 +101,10 @@ git clone https://github.com/codedialect/wai-worker
 cd wai-worker
 chmod +x wai_worker_setup.sh
 ./wai_worker_setup.sh
+```
+
+## if pm2 command not found then run first this:
+```bash
 source ~/.bashrc
 ```
 
