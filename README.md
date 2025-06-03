@@ -1,7 +1,7 @@
 # WAI Worker Auto Installer
 
 Run multiple WAI Workers automatically using this script. It sets up the full environment, installs the CLI, configures PM2, and runs multiple miners based on your GPU's VRAM.
-
+You can use windows or ubuntu GUI based app from here [WAI Worker Website](https://app.w.ai/download) or you can use [quickpod](https://console.quickpod.io?affiliate=bdb8136d-0278-42de-b16b-4153553bef5c) or your wsl.
 ---
 
 ## System Requirements
