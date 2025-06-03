@@ -99,7 +99,7 @@ nvidia-smi
 ```bash
 git clone https://github.com/codedialect/wai-worker
 cd wai-worker
-chmod +x wai_worker_setup
+chmod +x wai_worker_setup.sh
 ./wai_worker_setup.sh
 ```
 
