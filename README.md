@@ -126,6 +126,13 @@ pm2 stop all
 
 # Clear logs
 pm2 flush
+
+# Restart specific worker
+pm2 restart <worker number>
+
+# Check specific worker logs
+pm2 logs <worker number>
+
 ```
 
 ---
