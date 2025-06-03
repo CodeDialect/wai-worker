@@ -26,7 +26,7 @@ You can use windows or ubuntu GUI based app from here [WAI Worker Website](https
 
 ## For Quickpod Users (First Do)
 ```bash
-apt update && apt install sudo wget -y
+apt update && apt install sudo wget git -y
 ```
 ---
 
