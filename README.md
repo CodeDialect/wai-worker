@@ -24,9 +24,15 @@ Run multiple WAI Workers automatically using this script. It sets up the full en
 
 ---
 
-## CUDA 12.4 Must Be Installed Manually
+## For Quickpod Users (First Do)
+```bash
+apt update && apt install sudo
+```
+---
 
-Before using the script, ensure CUDA 12.4 is installed with `nvcc`:
+## CUDA 12.4 Must Be Installed Manually 
+
+Before using the script, ensure CUDA 12.4 is installed with `nvcc` to check your cuda version `nvcc --version`:
 
 # CUDA 12.4 Setup for Ubuntu 22.04
 
@@ -52,6 +58,20 @@ echo 'export PATH=/usr/local/cuda-12.4/bin:$PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+---
+
+# Upgrading or Downgrading to CUDA 12.4 (Optional):
+Follow if you have a different CUDA version installed
+
+# Uninstall the existing CUDA version:
+```bash
+sudo apt remove --purge cuda
+sudo apt autoremove
+```
+Now, Follow Install CUDA 12.4 step above.
+
+---
 
 Then verify:
 ```bash
