@@ -22,12 +22,12 @@ banner() {
                                 
                                                                                                                                 
 ${YELLOW}                      :: Powered by Noderhunterz ::
-${NC}""
+${NC}"
 }
 
 update_system() {
   echo -e "${BLUE}🔄 Updating system packages...${RESET}"
-  apt update -qq && apt upgrade -qq -y
+  sudo apt update && apt upgrade -y
 }
 
 install_nodejs() {
@@ -51,7 +51,7 @@ install_nodejs() {
 
 install_dependencies() {
   echo -e "${BLUE}📦 Installing dependencies...${RESET}"
-  apt install -qq -y lsb-release curl iptables build-essential git wget lz4 jq make gcc nano \
+  apt install -y lsb-release curl iptables build-essential git wget lz4 jq make gcc nano \
     automake autoconf htop nvme-cli libgbm1 pkg-config libssl-dev \
     libleveldb-dev tar clang bsdmainutils ncdu unzip \
     python3 python3-pip python3-venv python3-dev
@@ -122,6 +122,13 @@ EOF
   echo -e "${GREEN}✅ PM2 config created with $INSTANCES isolated workers using unique HOME paths.${RESET}"
 }
 
+prewarm_wai() {
+  echo -e "${BLUE}⏳ Running initial wai setup to warm cache...${RESET}"
+  bash -i -c "wai run" || true
+  chmod +x ~/.wombo/cache/bin/uv 2>/dev/null || true
+  echo -e "${GREEN}✅ WAI CLI pre-warmed and ready for PM2.${RESET}"
+}
+
 start_workers() {
   echo -e "${BLUE}🔁 Loading NVM environment to enable PM2 globally...${RESET}"
   export NVM_DIR="$HOME/.nvm"
@@ -148,6 +155,7 @@ main() {
   install_pm2
   detect_vram
   generate_pm2_config
+  prewarm_wai
   start_workers
 }
 
