@@ -1,1 +1,119 @@
-# wai-worker
+# WAI Worker Auto Installer
+
+Run multiple WAI Workers automatically using this script. It sets up the full environment, installs the CLI, configures PM2, and runs multiple miners based on your GPU's VRAM.
+
+---
+
+## System Requirements
+
+### Hardware
+- NVIDIA GPU with **Compute Capability 5.0+**:
+  - GTX 1050
+  - GTX 1060
+  - RTX 2060
+  - RTX 3070
+  - RTX 4080
+  - and similar...
+- Minimum **8 GB VRAM**, recommended 12+ GB for running multiple nodes
+
+### Software
+- **Ubuntu 20.04 or 22.04 ONLY**
+  - CUDA 12.4 is not guaranteed to work on later versions
+- Root access (`sudo`) to install dependencies
+- Internet connection
+
+---
+
+## CUDA 12.4 Must Be Installed Manually
+
+Before using the script, ensure CUDA 12.4 is installed with `nvcc`:
+
+# CUDA 12.4 Setup for Ubuntu 22.04
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-4
+```
+
+# CUDA 12.4 Setup for Ubuntu 20.04
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-4
+```
+
+# Add cuda 12.4 to the path
+```bash
+echo 'export PATH=/usr/local/cuda-12.4/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Then verify:
+```bash
+nvcc --version
+nvidia-smi
+```
+
+---
+
+## Installation Steps
+
+### 1. Clone the Repo and Run Script
+
+```bash
+git clone https://github.com/codedialect/wai-worker
+cd wai-worker
+chmod +x wai_worker_setup
+./wai_worker_setup.sh
+```
+
+- You will be asked to enter your **W_AI_API_KEY**
+- The script auto-detects VRAM and recommends number of workers
+- PM2 will launch and manage the workers
+
+---
+
+## Monitoring Your Workers
+
+```bash
+# View all PM2 processes
+pm2 list
+
+# View logs for all
+pm2 logs
+
+# Restart all workers
+pm2 restart all
+
+# Stop all workers
+pm2 stop all
+
+# Clear logs
+pm2 flush
+```
+
+---
+
+## Clean Start
+
+If you ever want to wipe and reset:
+
+```bash
+pm2 delete all
+rm -rf /tmp/wai-*
+```
+
+---
+
+## Notes
+
+- First launch will warm up the CLI and extract WAI cache
+- Each worker runs in a separate isolated temp `$HOME`
+- Adjust the number of workers in the `wai-auto-setup.sh` prompt based on VRAM
+
+---
