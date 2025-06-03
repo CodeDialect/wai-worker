@@ -27,7 +27,7 @@ ${NC}"
 
 update_system() {
   echo -e "${BLUE}🔄 Updating system packages...${RESET}"
-  sudo apt update && apt upgrade -y
+  sudo apt update -qq && apt upgrade -qq -y
 }
 
 install_nodejs() {
@@ -51,7 +51,7 @@ install_nodejs() {
 
 install_dependencies() {
   echo -e "${BLUE}📦 Installing dependencies...${RESET}"
-  apt install -y lsb-release curl iptables build-essential git wget lz4 jq make gcc nano \
+  sudo apt install -qq -y lsb-release curl iptables build-essential git wget lz4 jq make gcc nano \
     automake autoconf htop nvme-cli libgbm1 pkg-config libssl-dev \
     libleveldb-dev tar clang bsdmainutils ncdu unzip \
     python3 python3-pip python3-venv python3-dev
@@ -143,8 +143,8 @@ start_workers() {
 main() {
   banner
   update_system
-  install_nodejs
   install_dependencies
+  install_nodejs
 
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
