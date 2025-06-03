@@ -140,11 +140,3 @@ rm -rf /tmp/wai-*
 ```
 
 ---
-
-## Notes
-
-- First launch will warm up the CLI and extract WAI cache
-- Each worker runs in a separate isolated temp `$HOME`
-- Adjust the number of workers in the `wai-auto-setup.sh` prompt based on VRAM
-
----
