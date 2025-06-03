@@ -101,6 +101,7 @@ git clone https://github.com/codedialect/wai-worker
 cd wai-worker
 chmod +x wai_worker_setup.sh
 ./wai_worker_setup.sh
+source ~/.bashrc
 ```
 
 - You will be asked to enter your **W_AI_API_KEY**
