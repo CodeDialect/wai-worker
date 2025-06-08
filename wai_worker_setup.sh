@@ -95,11 +95,15 @@ detect_vram() {
 }
 
 generate_pm2_config() {
-  echo -e "${BLUE}📝 Creating PM2 configuration file with isolated environments...${RESET}"
+  echo -e "${BLUE}📝 Creating PM2 configuration file using shared /tmp/wai folder...${RESET}"
+
+  # Create the shared folder once
+  mkdir -p /tmp/wai
+  echo "Shared HOME folder created at /tmp/wai"
+
   echo "module.exports = { apps: [" > wai.config.js
+
   for ((i=1;i<=INSTANCES;i++)); do
-    echo "Creating isolated home for instance $i at /tmp/wai-$i"
-    mkdir -p /tmp/wai-$i
     cat <<EOF >> wai.config.js
 {
   name: 'wai-node-$i',
@@ -112,14 +116,15 @@ generate_pm2_config() {
   max_memory_restart: '1G',
   env: {
     NODE_ENV: 'production',
-    HOME: '/tmp/wai-$i',
+    HOME: '/tmp/wai',
     W_AI_API_KEY: '$WAI_KEY'
   }
 },
 EOF
   done
+
   echo "]};" >> wai.config.js
-  echo -e "${GREEN}✅ PM2 config created with $INSTANCES isolated workers using unique HOME paths.${RESET}"
+  echo -e "${GREEN}✅ PM2 config created with $INSTANCES workers sharing /tmp/wai as HOME.${RESET}"
 }
 
 start_workers() {
